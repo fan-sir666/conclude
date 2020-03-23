@@ -4,7 +4,7 @@
 
 ```js
 BOM(browser Object Model)浏览器对象模型:
-    Window : 顶级对象;
+  Window : 顶级对象;
     Document 操作网页的;
     Location 操作网址的
     Navigator 操作浏览器的信息和设置的(其实只能获取)
