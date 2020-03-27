@@ -618,3 +618,30 @@ e.preventDefault(); | <a href="javascript:;"></> // 阻止浏览器默认行为
     </script>
 </body>
 ```
+## 获取距离的方式
+
+```js
+// offset系列
+offsetWidth: 某一个元素的尺寸 宽度+padding+border  不包括margin 不带单位;
+offsetHeight: 某一个元素的高度 高度+padding+border 不包括margin 不带单位;
+offsetLeft: 找到自身相对于定位父级的left值;
+offsetTop:找到自身相对于定位父级的top值;
+offsetParent: 获取自己的定位父级;
+ /* 注意: 1.元素自身如果有fixed属性， offsetParent的值null
+        2.body元素的offsetParent为null
+        3.如果最近的父级没有定位 那么offsetParent往上找, 找到就返回该父元素，找不到返回body */
+
+// scroll系列
+scrollHeight: 获取指定标签内内容的真实高度;
+scrollTop: 被卷去的高度  卷曲;
+
+// client系列
+clientWidth: 获取的是元素不包括边框的宽度;
+clientHeight: 获取的是元素不包括边框的高度;
+clientLeft: 左边框的宽度
+clientTop: 上边框的宽度
+```
+## 封装缓动动画
+
+```js
+```
