@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #cccccc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <select name="" id="">
+    <option value="" selected>难</option>
+    <option value="">好</option>
+    <option value="">你</option> -->
+    <button id="run">Run</button>
+    <input type="input" />
+    <div></div>
+    </select>
+    <script src="./jquery-3.4.1.min.js"></script>
+    <script>
+        // console.log($('option:not(:selected)'));
+        $("#run").click(function() {
+            $("div:not(:animated)").animate({
+                left: "+=20"
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

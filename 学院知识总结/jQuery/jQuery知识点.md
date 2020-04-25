@@ -4,21 +4,60 @@
 
 ### 基本
 
+```js
+#id :$("#myDiv");
+标签名 :$("div");
+类名 :$(".myClass");
+通配符 : $("*");
+```
+
 ### 层级
+
+```js
+后代: $("form input");
+子代: $("form > input");
+```
 
 ### 筛选
 
-### 内容
-
-### 可见性
+```js
+匹配第一个: $('li:first');
+匹配最后一个$('li:last')
+匹配未选中状态的: $("input:not(:checked)");
+索引值为偶数: $("tr:even");
+索引值为奇数: $("tr:odd");
+按索引筛选: $("tr:eq(1)");
+内容: $("div:has(p)")
+```
 
 ### 属性
-
+```js
+$("input[name='newsletter']");
+```
 ### 子元素
+```js
+$("ul li:first-child");
+$("ul li:last-child");
+$("ul li:nth-child(2)")
+```
 
-### 表单
-
+### 表单类型
+```js
+所有 input, textarea, select 和 button 元素: $(":input");
+单行文本框: $(":text");
+密码框: $(":password");
+单选按钮: $(":radio");
+复选框: $(":checkbox");
+提交按钮: $(":submit");
+重置按钮: $(":reset");
+```
 ### 表单对象属性
+```js
+可用的input元素: $("input:enabled");  没有禁用的
+不可用的input元素: $("input:disabled");
+选中的复选框: $("input:checked");
+$("select option:selected")
+```
 ## DOM和jQuery的转换
 
 ```js
@@ -126,4 +165,37 @@ $('b').replaceWith('<a href="http://www.baidu.com">百度</a>')
 // prev() 上一个  prevAll() 上所有
 // next() 下一个  nextAll() 下所有
 // siblings()   某个元素的其他兄弟元素
+```
+## 事件
+
+### 常见的事件类型
+```js
+失去焦点: $("p").blur();
+获得焦点: $("#login").focus();
+下拉菜单的值发生改变时: $(selector).change();
+点击事件: $("p").click();
+双击事件: dblclick;
+键盘按下: keydown;
+键盘抬起: keyup;
+鼠标的移入和离开:
+mouseenter
+mouseleave
+mousemove
+mouseout
+// 悬停
+mouseover
+当调整浏览器窗口的大小时，发生 resize;
+当页面滚动条变化时 : scroll;
+```
+### 绑定解绑
+```js
+// on 触发多次  one 只触发一次
+// off 解绑事件
+```
+### 入口函数
+
+```js
+$(document).ready(function(){
+  // 在这里写你的代码...
+});
 ```
