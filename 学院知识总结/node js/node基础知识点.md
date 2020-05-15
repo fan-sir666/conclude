@@ -186,3 +186,293 @@ server.on('request', function (req, res) {
                //如果只发送一次的话，可以直接使用res.end('111111');
 })
 ```
+## http请求和响应处理
+
+### GET方式数据的发送
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- action 用户输入的内容让谁去处理 -->
+    <!-- method 使用什么提交方式 -->
+    <form action="http://localhost" method="GET">
+        <input type="text" name="username" id="">
+        <input type="password" name="password" id="">
+        <input type="submit" value="登录">
+    </form>
+</body>
+</html>
+```
+```js
+// 1.引入http模块
+const http = require('http');
+const url = require('url');
+
+// 2.使用http模块创建服务
+let app = http.createServer();
+
+// 3.监听浏览器的request事件 处理请求并响应内容
+app.on('request', (req, res)=>{
+    // 为了解决乱码
+    res.writeHead(200, {
+        'Content-Type': 'text/html;charset=utf8'
+    })
+
+// 为了拿到对象形式的前端用户写的数据
+  let params = url.parse(req.url, true);
+
+    if (params.query.username =='tom'&&  params.query.password =='123456') {
+        res.write('欢迎您'+params.query.username)
+    } else {
+        res.write("账号或密码错误,请您去注册")
+    }
+    res.end();
+})
+
+// 4.监听指定的端口 启动服务
+app.listen(80, ()=>{
+    // http://127.0.0.1
+    console.log("请访问: http://localhost")
+})
+```
+### POST方式数据的发送
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- action 用户输入的内容让谁去处理 -->
+    <!-- method 使用什么提交方式 -->
+    <form action="http://localhost" method="POST">
+        <input type="text" name="username" id="">
+        <input type="password" name="password" id="">
+        <input type="submit" value="登录">
+    </form>
+</body>
+</html>
+```
+```js
+// 1.引入http模块
+const http = require('http');
+const querystring = require('querystring');
+
+// 2.使用http模块创建服务
+let app = http.createServer();
+
+// 3.监听浏览器的request事件 处理请求并响应内容
+// req 代表请求对象
+// res 代表响应对象
+app.on('request', (req, res)=>{
+    // 为了解决乱码
+    res.writeHead(200, {
+        'Content-Type': 'text/html;charset=utf8'
+    })
+    let postData ='';
+    // data事件-->监听数据传输事件
+    req.on('data', (chunk)=>{
+        postData +=chunk;
+    })
+    // end事件
+    req.on('end', ()=>{
+        let finalData = querystring.parse(postData);
+    })
+})
+
+// 4.监听指定的端口 启动服务
+app.listen(3000, ()=>{
+    // http://127.0.0.1
+    console.log("请访问: http://localhost:3000")
+})
+```
+### 路由
+
+```js
+// 1.引入http模块
+const http = require('http');
+const url = require('url');
+
+// 2.使用http模块创建服务
+let app = http.createServer();
+
+// 3.监听浏览器的request事件 处理请求并响应内容
+// req 代表请求对象
+// res 代表响应对象
+app.on('request', (req, res)=>{
+       // 为了解决乱码
+       res.writeHead(200, {
+        'Content-Type': 'text/html;charset=utf8'
+    })
+    // console.log(req.url);
+    // 当url中掺杂参数 的时候 必须使用pathname来做
+    let pathname = url.parse(req.url).pathname;
+    console.log(pathname);
+    // 首页
+    if (pathname == '/'||pathname== '/index') {
+        res.end("首页"); 
+    }
+    // 列表页
+    if (pathname == '/list') {
+        res.end("列表页"); 
+    }
+    // 文章页
+    if (pathname == '/article') {
+        res.end("文章页"); 
+    }
+    // 登录页面
+    if (pathname == '/login') {
+        res.end("登录页面"); 
+    }
+})
+
+// 4.监听指定的端口 启动服务
+app.listen(80, ()=>{
+    // http://127.0.0.1
+    console.log("请访问: http://localhost")
+})
+```
+## 静态目录
+```js
+// 需求
+/* 浏览器地址栏 http://localhost:80/public/default.html?a=1&b=tom
+响应的是 /public/default.html
+如果输入错误 那么返回 找不到该文件 */
+
+// 代码：
+// 1.1 引入http模块
+const http = require('http');
+// 1.2 引入url模块
+const url = require('url');
+// 1.3 引入path
+const path = require('path');
+// 1.4 引入fs模块
+const fs = require('fs');
+// 1.5 引入mime模块 --作用: 识别 并分析 文件的MIME类型
+const mime = require('mime');
+// 2.使用http模块提供的方法创建服务
+const app = http.createServer();
+
+// 3.监听客户端的request事件 处理请求并响应内容
+app.on('request', (req, res)=>{
+    // 3.1 获取地址栏中的url
+    // console.log(req.url)  /public/default.html?a=1&b=tom
+    let pathname = url.parse(req.url).pathname;
+    // console.log(pathname); /public/default.html
+    let absolutePath = path.join(__dirname,pathname);
+    // console.log(absolutePath); E:\FullStack\day80-Node基础\code\static\public\default.html
+    fs.readFile(absolutePath, (err, data) =>{
+        // 如果路径错误 返回Not Found
+        if (err != null) {
+            res.writeHead(404, {
+                'Content-Type': 'text/plain;charset=utf8'
+            })
+            res.end("Not Found");
+            return;
+        }
+
+        let type = mime.getType(absolutePath);
+        // 如果路径正确 返回内容
+        res.writeHead(200, {
+            'Content-Type': type
+        })
+        res.end(data);
+    })
+
+})
+// 4.指定端口 启动服务
+app.listen(80, ()=>{
+    console.log("请打开 http://localhost")
+})
+```
+## Express介绍 -- Node的服务框架
+
+### 简化服务的创建
+
+```js
+// 1.引入框架模块
+const express = require('express');
+// 2.使用框架模块创建服务
+const app = express();
+
+// 3.请求的时候 返回数据(中间件)
+app.use((req, res) =>{
+    res.send("你好");
+})
+
+// 4.指定服务端口号 并启动服务
+app.listen(80, ()=>{
+    console.log("服务启动: http://localhost")
+})
+```
+### 简化前面的GET或POST请求
+
+```js
+// get请求
+/ 1.引入框架模块
+const express = require('express');
+// 2.使用框架模块创建服务
+const app = express();
+
+// 3.请求的时候 返回数据(中间件)
+app.get('/', (req, res) =>{
+    res.send("这是首页")
+})
+
+app.get('/index', (req, res) =>{
+    res.send("这是首页")
+})
+
+app.get('/list', (req, res) =>{
+    res.send("这是列表页")
+})
+
+// 4.指定服务端口号 并启动服务
+app.listen(80, ()=>{
+    console.log("服务启动: http://localhost")
+})
+```
+```js
+// POST
+// 1.引入框架模块
+const express = require('express');
+// 2.使用框架模块创建服务
+const app = express();
+
+// 使用express的中间件
+app.use(express.urlencoded())
+
+app.post('/login', (req, res) =>{
+    console.log(req.body);
+    res.send("这是表单发起的ajax请求")
+})
+
+// 4.指定服务端口号 并启动服务
+app.listen(80, ()=>{
+    console.log("服务启动: http://localhost")
+})
+```
+### 简化静态目录
+
+```js
+// 1.引入框架模块
+const express = require('express');
+// 2.使用框架模块创建服务
+const app = express();
+
+// 想让哪个文件夹作为静态目录,那么就在第一个参数中写文件夹的名字 添加/  后面的写文件夹的名字
+
+app.use('/public', express.static('public')); //这句话是重点
+
+// 4.指定服务端口号 并启动服务
+app.listen(80, ()=>{
+    console.log("服务启动: http://localhost")
+})
+```
