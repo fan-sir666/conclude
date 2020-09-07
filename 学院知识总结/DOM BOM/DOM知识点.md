@@ -447,8 +447,3 @@ clientHeight: 获取的是元素不包括边框的高度;
 clientLeft: 左边框的宽度
 clientTop: 上边框的宽度
 ```
-## 封装缓动动画
-
-```js
-
-```
