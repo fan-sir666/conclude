@@ -100,6 +100,7 @@ java类的命名(大驼峰):类的名字必须由大写字母开头而单词中�
 
 #### 字符 和  字符串
 ![图片](./img/5.png)
+
 ![图片](./img/6.png)
 
 #### 布尔
@@ -198,10 +199,14 @@ java类的命名(大驼峰):类的名字必须由大写字母开头而单词中�
     //        final String N = c+10+"";
     //        System.out.println(N+c); // 2010
 ```
-## 运算符{算数运算符、赋值运算符、关系运算符、逻辑运算符、三元运算符}
+## 运算符（算数运算符、赋值运算符、关系运算符、逻辑运算符、三元运算符）
 
 ### 算数运算符（四则运算 取模（必须是数字类型） 字符串的拼接）
+
+
+
 ![图片](./img/8.png)
+
 ![图片](./img/9.png)
 
 ```java
@@ -248,7 +253,309 @@ java类的命名(大驼峰):类的名字必须由大写字母开头而单词中�
 //        System.out.println(a); // 11
 //        System.out.println(b); // 12
 ```
+### 赋值运算符（先将右侧进行运算，然后将式子  改写成  = 号的形式 , 最后将结果输出）
+
+![图片](./img/10.png)
+
+```java
+//        int a = 10;
+//        int b = 20;
+//        a = 10 * 2;
+//        b *= 1 + 1;
+
+
+//        int a = 2;
+//        int b = 3;
+//        a *= a + b;
+//        b *= b + 1;
+
+//
+//        byte b = 3;
+//        b *= b + 2;
+
+
+//        System.out.println(a); // 20   10
+//        System.out.println(b); // 40   12   15
+```
+### 关系运算符
+
+![图片](./img/11.png)
+
+```java
+/*        int a = 10;
+        int b = 20;
+        System.out.println(a == b);// false
+        System.out.println(a >= b);// false
+        System.out.println(a <= b);// true
+        System.out.println(a != b);// true*/
+
+        /*
+         *   a  11 12 13
+         *
+         *   b   12 13 14
+         * */
+       /* int a = 10;
+        int b = 11;
+        System.out.println(a++ == ++b); // false
+        System.out.println(++a >= b++); // true
+        System.out.println(a++ != ++b); // true
+        System.out.println(a); // 13
+        System.out.println(b); // 14*/
+
+
+       /* int a = 3;
+        int b = 4;
+        System.out.println( a=b ); // 4
+        System.out.println( a==b );// true
+*/
+
+
+/*        int a = 10;
+        int b = 20;
+        boolean c = (a + 10) > b; // false
+        boolean d = (a + b) > b; // true
+        boolean e = (a + b) >= (b + a); // true
+        System.out.println(c);
+        System.out.println(d);
+        System.out.println(e);*/
 
 
 
+/*        int a = 2;
+        int b = 3;
+        boolean x = (a+2) == (b++); // false
+        boolean y = (a+2) == b; // true
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(b); // 4*/
+
+
+/*        int a = 2;
+        int b = 3;
+        boolean x = (a+2) == (++b); // true
+        boolean y = (a+2) == b; // true
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(b); // 4*/
+```
+### 逻辑运算符
+
+![图片](./img/12.png)
+
+```java
+        /*
+         *   逻辑运算符      &       |        ！                ^（异或）                  &&  （短路与）         ||（短路或）
+         *
+         *             一假则假   一真则真    取反      两端值相同false,不相同true     式子出了结果：后面不执行
+         *
+         * */
+
+        /*int a = 10;
+        int b = 20;
+        boolean c = (a > 10) && (b >= 20);
+        System.out.println(c); // false*/
+
+
+/*        int a = 10;
+        int b = 20;
+        a += 5; // 15
+        b -= 10; // 10
+        boolean c = (a > 10) && (b >= 20);
+        System.out.println(a); // 15
+        System.out.println(b);  // 10
+        System.out.println(c);  // false*/
+
+
+       /* int a = 10;
+        int b = 20;
+        a += 5;  // 15
+        b -= 10;    // 10
+        boolean c = (a > 10) || (b >= 20);
+        System.out.println(a); // 15
+        System.out.println(b);  // 10
+        System.out.println(c);  // true*/
+
+
+       /* int a = 10;  // 11 12   13
+        int b = 11;  // 12  11  13
+        System.out.println( a++==10 && ++b>=11); // true
+        System.out.println( ++a==b-- || b++>=a-- || ++a>13 || b--<12 || (b=13)>(a=12)); // true
+        System.out.println( a++==++b && (b=13)!=a && (a=13)!=b); // false
+        System.out.println(a); // 13
+        System.out.println(b); // 13*/
+
+
+      /*  int a = 1;  // 2
+        int b = 1;  // 2
+        boolean c = (a++ + ++b > 5) && (b >= a) && (b++ == a);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c); // false*/
+
+
+
+/*        int a = 1;  // 2    3
+        int b = 1;  // 2 3  4
+
+//      先算 && 再算 ||
+//                                       1      2 true   2      2 true
+//                    2      3    false          true 这里决定结果
+        boolean c = (a++ + ++b > 5) || (b++ <= ++a) && (b++ == a);
+        System.out.println(a); // 3
+        System.out.println(b); // 4
+        System.out.println(c); // true*/
+```
+### 三元运算符
+
+![图片](./img/13.png)
+
+```java
+//        int a = 10;
+//        int b = 20;
+//        int c = 30;
+//        //定义一个临时的变量 用来保存两个数中的较大值
+//        int tmp = a > b ? a : b;
+//        //利用上一步的较大值跟第三个数比较，确定这三个数中的最大值
+//        int max = c > tmp ? c : tmp;
+//        //打印结果
+//        int max = c > (a>b?a:b) ? c : (a>b?a:b);
+//        System.out.println(max); // 30
+```
+## 流程控制语句
+
+![图片](./img/14.png)
+
+### 判断
+```java
+/*
+        *  流程语句：if
+        *    判断条件进行时，要先小范围再大范围
+        *    格式:
+        *      单条件： if(判断条件){代码块}
+        *      二选一:  if(判断条件){代码块} else {代码块}
+        *      多条件:  if(判断条件){代码块} else if(判断条件){代码块} else {代码块}
+        * */
+
+//        int age = 20;
+//        if (age >= 18) {
+//            System.out.println("成年人：今年"+age+"岁");
+//        }
+
+
+//        String name = "范志伟";
+//        int sex = 1;
+//        if (sex == 0) {
+//            System.out.println("欢迎"+name+"女士");
+//        }else {
+//            System.out.println("欢迎"+name+"先生");
+//        }
+
+//        int num = 10;
+//        switch (num){
+//            case 1:
+//            case 2:
+//            case 3:
+//            case 4:
+//            case 5:
+//                System.out.println("今天是工作日");
+//                break;
+//            case 6:
+//            case 7:
+//                System.out.println("今天是休息日");
+//                break;
+//                default:
+//                    System.out.println("输入数字超出范围1~7");
+//        }
+
+//        int score = 59;
+//        if (score >= 80) {
+//            System.out.println("成绩优秀");
+//        }else if (score >= 60 && score < 79) {
+//            System.out.println("成绩及格");
+//        }else {
+//            System.out.println("需要再次补考");
+//        }
+```
+### 循环
+```java
+/*
+        * 循环语句 for
+        *
+        *      语法: for (初始值; 循环条件; 步进) { 循环体 }
+        *      注意: 循环内定义的变量  每次都会重新赋值  变量不会发生改变
+        *
+        * 循环语句 while
+        *
+        *  语法:
+        *       循环初始值
+        *       while (循环条件){ 循环代码  步进}
+        *
+        *
+        * */
+
+       /* for (int i = 1; i <=100 ; i++) {
+            if (i%3==0){
+                System.out.println(i);
+            }
+        }*/
+
+
+       /* int i = 1;
+        while (i<=100){
+
+            if (i %3 == 0) System.out.println(i);
+
+            i++;
+        }*/
+
+/*//     倒叙打印
+        for (int i = 100; i >= 1 ; i--) {
+            System.out.println(i);
+        }*/
+
+/*//      无限循环  判断条件总是满足
+//        for (;true;) {
+//            System.out.println("无线循环");
+//        }
+//        while (true){
+//            System.out.println("无线循环");
+//        }*/
+
+
+/*//      循环嵌套
+        for (int i = 0; i < 3 ; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print("*");
+            }
+            System.out.println(" ");
+        }*/
+
+
+// 练习题
+//        思考案例1：要求，每次展示一个*，用for展示如下效果 （不能用if）
+//	*
+//	**
+//	***
+//	****
+
+//        for (int i = 0; i < 4; i++) {
+//            for (int j = 0; j <= i ; j++) {
+//                System.out.print("*");
+//            }
+//            System.out.println(" ");
+//        }
+
+//      思考案例2：要求，每次展示一个*，用for展示如下效果 （不能用if）
+//	****
+//	***
+//	**
+//	*
+
+//        for (int i = 0; i < 4; i++) {
+//            for (int j = 4; j > i ; j--) {
+//                System.out.print("*");
+//            }
+//            System.out.println(" ");
+//        }
+```
 

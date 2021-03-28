@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        ul {
+            display: flex;
+            width: 500px;
+            height: 800px;
+            margin: 50px auto;
+            border: 1px dashed red;
+            /* 主轴方向： 
+                row  行 
+                row-reverse  行反向 
+                column 列   
+                column-reverse 列反向 
+            */
+            flex-direction: column;
+            /* 对齐方式: 
+                flex-start  左侧对齐
+                flex-end    右侧对齐
+                center      居中对齐
+                space-between 两端对齐中间等距
+                space-around  空间环绕
+            */
+            justify-content: center;
+            /* 伸缩项目是否换行: 
+                nowrap  不换行
+                wrap    换行
+            */
+            /* 设置伸缩项不换行后的对齐方式
+                flex-start  侧轴起始对齐
+                flex-end    侧轴结束对齐
+                stretch 拉伸
+                center 居中
+             */
+            /* flex-wrap: nowrap; */
+            align-items:center;
+            /* 设置伸缩项换行后的对齐方式
+                flex-start  侧轴起始对齐
+                flex-end    侧轴结束对齐
+                center      居中对齐
+                space-between 两端对齐中间等距
+                space-around  空间环绕
+             */
+            /* flex-wrap: wrap; */
+            /* align-content: start; */
+        }
+        
+        li {
+            flex: 1;
+            order: 1;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>1n</li>
+        <li>2n</li>
+        <!-- <li>3n</li>
+        <li>4n</li>
+        <li>5n</li> -->
+        <!-- <li>1n</li>
+        <li>2n</li>
+        <li>3n</li>
+        <li>4n</li>
+        <li>5n</li> -->
+    </ul>
+</body>
+
+</html>
