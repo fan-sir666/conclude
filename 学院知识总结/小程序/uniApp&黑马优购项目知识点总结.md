@@ -46,6 +46,8 @@ $http.afterRequest = function () {
  ]
 在 subpkg 目录上鼠标右键，点击 新建页面 选项，并填写页面的相关信息
 ```
+## sass的使用
+
 ## 项目中知识点的使用 (采用vue语法进行开发)
 
 ### 轮播图
@@ -70,7 +72,7 @@ $http.afterRequest = function () {
   6. 页面跳转的形式 
     uni.switchTab tabBar页面  uni.navigateTo 应用中的页面
 ```
-### 组建的使用
+### 组件的使用
 ```txt
   1. 组件的创建及使用
     1.1 在项目根目录的 components 目录上 创建组件 my-xxx 的形式
@@ -101,7 +103,20 @@ $http.afterRequest = function () {
 ### 搜索实现
 ```txt
 1.搜索历史记录持久化存储到本地
-uni.setStorageSync('kw', JSON.stringify(数据))  JSON.parse(uni.getStorageSync('kw') || '[]')
+uni.setStorageSync('kw', JSON.stringify(数据))  JSON.parse(uni.getStorageSync('kw') || '[]') uni.clearStorageSync('kw');
+
+2. 搜索框的防抖处理 (定时器控制发起请求)
+// 清除 timer 对应的延时器
+  clearTimeout(this.timer)
+  // 重新启动一个延时器，并把 timerId 赋值给 this.timer
+  this.timer = setTimeout(() => {
+    // 如果 500 毫秒内，没有触发新的输入事件，则为搜索关键词赋值
+    this.kw = e.value
+    console.log(this.kw)
+  }, 500)
+
+3. es6 Set的使用
+[基本用法]{https://blog.csdn.net/qq_41846861/article/details/89056345}
 ```
 [实现方式]{https://www.escook.cn/docs-uni-shop/mds/5.search.html#_5-1-1-%E8%87%AA%E5%AE%9A%E4%B9%89-my-search-%E7%BB%84%E4%BB%B6}
 
@@ -204,6 +219,212 @@ uni.setStorageSync('kw', JSON.stringify(数据))  JSON.parse(uni.getStorageSync(
 </script>
 
 ```
+## vuex的使用
+1. 项目根目录下创建store文件夹(采用模块化管理数据)
+```js
+// 1. 导入 Vue 和 Vuex
+import Vue from 'vue'
+import Vuex from 'vuex'
+// 导入购物车的 vuex 模块
+import cartStore from './cartStore.js'	
+// 2. 将 Vuex 安装为 Vue 的插件
+Vue.use(Vuex)
+
+// 3. 创建 Store 的实例对象
+const store = new Vuex.Store({
+  // TODO：挂载 store 模块
+  modules: {
+	  m_cart: cartStore
+  },
+})
+
+// 4. 向外共享 Store 的实例对象
+export default store
+```
+2. main.js 入口文件中 
+```js
+// 导入store实例对象
+import store from './store/index.js'
+const app = new Vue({
+	...App,
+	// 将store 挂载到Vue实例上
+	store
+})
+app.$mount()
+```
+3. 模块文件中
+```js
+export default {
+  // 为当前模块开启命名空间
+  namespaced: true,
+  state:{},
+  // 同步方法
+  mutations:{
+	// 通过this.commit 来调用其他的方法
+	this.commit('m_cart/saveToStorage');
+  },
+  // 异步方法
+  actions: {},
+  // 模块的计算属性
+  getters: {},
+}
+```
+4. 在需要的页面
+```js
+// 映射方式使用模块中的方法
+import {mapMutations,mapGetters} from "vuex";
+methods: {...mapMutations('m_cart', ['addToCart']),}
+computed: {...mapGetters('m_cart', ['total'])}
+```
+## vue中mixins(混入)的使用
+```txt
+1. 在根目录下创建 mixins 文件夹
+// 导出一个 mixin 对象export default {}
+
+2. 在需要的页面使用
+// 导入自己封装的 mixin 模块
+import badgeMix from '@/mixins/tabbar-badge.js'
+
+export default {
+  // 将 badgeMix 混入到当前的页面中进行使用
+  mixins: [badgeMix],
+  // 省略其它代码...
+}
+```
+[文档链接]{https://cn.vuejs.org/v2/guide/mixins.html}
+
+## vue2中 watch 页面**初次加载完毕**后立即调用
+```js
+watch: {
+   // 定义 total 侦听器，指向一个配置对象
+   total: {
+      // handler 属性用来定义侦听器的 function 处理函数
+      handler(newVal) {
+         const findResult = this.options.find(x => x.text === '购物车')
+         if (findResult) {
+            findResult.info = newVal
+         }
+      },
+      // immediate 属性用来声明此侦听器，是否在页面初次加载完毕后立即调用
+      immediate: true
+   }
+}
+```
+
+## uni-app 的插件使用
+
+### **uni-icons**
+```html
+<uni-icons type="contact" size="30"></uni-icons>
+```
+![图片](./img/uni1.png)
+[图标类型] (https://hellouniapp.dcloud.net.cn/pages/extUI/icons/icons) 
+
+### **uni-search-bar**
+```html
+<uni-search-bar @confirm="search" @input="input" ></uni-search-bar>
+```
+```js
+// 自动获取光标
+// components -> uni-search-bar -> uni-search-bar.vue 下
+data() {
+  return {
+    show: true,
+    showSync: true,
+    searchVal: ""
+  }
+}
+```
+![图片](./img/uni2.png)
+
+### **uni-tag**
+```html
+<uni-tag text="标签"></uni-tag>
+```
+![图片](./img/uni3.png)
+
+### **uni-goods-nav** 商品导航
+```html
+<!-- fill 控制右侧按钮的样式  按钮是否平铺 -->
+<!-- options 左侧按钮的配置项 -->
+<!-- buttonGroup 右侧按钮的配置项 -->
+<!-- click 左侧按钮的点击事件处理函数 -->
+<!-- buttonClick 右侧按钮的点击事件处理函数 -->
+<uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick"
+				@buttonClick="buttonClick" />
+```
+![图片](./img/uni5.png)
+[官网使用]{https://ext.dcloud.net.cn/plugin?id=865}
+
+### uni-number-box **控制商品数量++ --**
+```html
+<uni-number-box></uni-number-box>
+<uni-number-box :min="0" :max="9"></uni-number-box>
+<uni-number-box @change="bindChange"></uni-number-box>
+```
+```js
+// 该插件的不足之处手动修改
+// 1. NumberBox 数据不合法的问题
+_onBlur(event) {
+  // 官方的代码没有进行数值转换，用户输入的 value 值可能是非法字符：
+  // let value = event.detail.value;
+
+  // 将用户输入的内容转化为整数
+  let value = parseInt(event.detail.value);
+
+  if (!value) {
+    // 如果转化之后的结果为 NaN，则给定默认值为 1
+    this.inputValue = 1;
+    return;
+  }
+
+  // 省略其它代码...
+}
+// 2. 完善 NumberBox 的 inputValue 侦听器
+inputValue(newVal, oldVal) {
+  // 官方提供的 if 判断条件，在用户每次输入内容时，都会调用 this.$emit("change", newVal)
+  // if (+newVal !== +oldVal) {
+
+  // 新旧内容不同 && 新值内容合法 && 新值中不包含小数点
+  if (+newVal !== +oldVal && Number(newVal) && String(newVal).indexOf('.') === -1) {
+    this.$emit("change", newVal);
+  }
+}
+```
+![图片](./img/uni7.png)
+
+##  uni-app 的API使用
+### uni.previewImage(OBJECT) **图片预览**
+```txt
+1. 通过给图片绑定点击事件来触发
+2. js代码
+preview(i) {
+				// 调用 uni.previewImage() 方法预览图片
+				uni.previewImage({
+					// 预览时，默认显示图片的索引
+					current: i,
+					// 所有图片 url 地址的数组
+					urls: this.goodsInfo.pics.map(x => x.pics_big)
+				})
+			},
+```
+![图片](./img/uni4.png)
+
+### uni.setTabBarBadge(OBJECT) **tabBar某一项的右上角添加文本**
+![图片](./img/uni6.png)
+
+### uni.showToast(OBJECT) **显示消息提示框**
+```js
+// 直接在入口文件main中 封装为全局提示
+uni.$toast = function(title = "获取数据失败", duration = 1500) {
+	uni.showToast({
+		title: title,
+		duration: duration,
+		icon: 'none'
+	});
+}
+```
+![图片](./img/uni8.png)
 
 
 

@@ -557,5 +557,116 @@ java类的命名(大驼峰):类的名字必须由大写字母开头而单词中�
 //            }
 //            System.out.println(" ");
 //        }
+
+// 九九乘法表
+
+        for (int i = 1; i <= 9; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print( j + "*" + i + "=" + i * j+"\t");
+            }
+            System.out.println("\n");
+
+        }
+    }
+```
+### 关键字
+
+```java
+ /*
+         *  关键字
+         *       break: 结束当前循环  放在循环体内
+         *
+         *       continue: 跳出本次循环
+         *
+         * */
+  /*      int c = 1;
+        for (int i = 1; i <= 100; i++) {
+            if (c>3){
+                break;
+            }
+            if (i % 17 == 0) {
+                System.out.println(i);
+                c++;
+            }
+        }*/
+
+        for (int i = 1; i <= 10; i++) {
+            if (i % 2 == 0) {
+                continue;
+            }
+            System.out.println(i);
+        }
+
+```
+### 循环标识符
+```java
+/*
+         *  循环标号: 就是给循环起标号，结合 break continue 关键字一起使用
+         *
+         * */
+
+        outer:
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.println("*");
+                // 直接可以结束外层循环
+                break outer;
+            }
+        }
+```
+## 数组
+
+1. 概念:存储多个变量的容器 且 需存相同数据类型的数据(java 中 数组的长度是固定的)
+
+2. 数组的定义**数据类型[] 数组名 = new 数据类型[元素个数或数组长度];**
+```java
+       // 定义数组的格式
+        // 标准型
+        int[] arr1 = new int[5];
+        // 完整型
+        int[] arr2 = new int[]{11,22,33};
+        arr2 = new int[]{44,55,66}; // 再次赋值
+        // 简化
+        int[] arr3 = {11,22,33};
+```
+3. 元素的默认值
+![图片](./img/15.png)
+
+4. 数组的基本操作
+```java
+int[] arr = { 1, 2, 3, 4, 5 };  
+String arrString = Arrays.toString(arr);  
+   
+// 直接输出，为内存地址
+System.out.println(arr);  
+// [I@139a55
+   
+System.out.println(arrString );  
+// [1, 2, 3, 4, 5]  
+
+1. 检查一个数组是否包含某值
+String[] arr= { "a", "b", "c", "d", "e" };  
+boolean b = Arrays.asList(arr).contains("a");  
+System.out.println(b);  
+// true 
+
+2. 逆向输出一个数组
+int[] arr= { 1, 2, 3, 4, 5 };  
+ArrayUtils.reverse(intArray);  
+System.out.println(Arrays.toString(intArray));  
+//[5, 4, 3, 2, 1]
+
+int[] arr = { 1, 2, 3, 4, 5 };
+int[] revArr = new int[arr.length];
+for(int i = 0; i < arr.length; i++){
+    revArr[i] = arr[arr.length - i -1];
+}
+System.out.println(Arrays.toString(revArr));
+//[5, 4, 3, 2, 1]
+
+3. 移除数组中的元素
+int[] arr= { 1, 2, 3, 4, 5 };  
+int[] removed = ArrayUtils.removeElement(intArray, 3);//create a new array  
+System.out.println(Arrays.toString(removed))
 ```
 
