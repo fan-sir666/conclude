@@ -40,7 +40,7 @@ $http.afterRequest = function () {
 在 pages.json 中，和 pages 节点平级的位置声明 subPackages 节点，用来定义分包相关的结构：
 "subPackages":[
     {
-      "root": "subpkg",
+      "root": "subpkg",// 切记要和根目录同名
       "pages":  [ ]
     }
  ]
@@ -129,7 +129,7 @@ uni.setStorageSync('kw', JSON.stringify(数据))  JSON.parse(uni.getStorageSync(
         请求数据的方法中 先开启  请求结束 关闭  接着在onReachBottom中判断请求状态 true 直接return下面代码不在执行
         判断是否还有下一页数据 pagenum * pagesize >= total
 
-  下拉：son相关页面配置 "enablePullDownRefresh": true,	"backgroundColor": "#F8F8F8",
+  下拉：json相关页面配置 "enablePullDownRefresh": true,	"backgroundColor": "#F8F8F8",
         下拉刷新事件 onPullDownRefresh 将相关数据重置
         并通过传参的形式 this.getGoodsList(() => uni.stopPullDownRefresh()) 重新发起请求
         请求方法中 getGoodsList(cb) { // 在关闭节流下面 判断 cb && cb();}

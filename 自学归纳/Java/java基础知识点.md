@@ -105,7 +105,7 @@ java类的命名(大驼峰):类的名字必须由大写字母开头而单词中�
 
 #### 布尔
 
-![图片](./img/4.png)
+![图片](./img/7.png)
 
 ```java
 //      单字符
@@ -632,7 +632,24 @@ java类的命名(大驼峰):类的名字必须由大写字母开头而单词中�
 3. 元素的默认值
 ![图片](./img/15.png)
 
-4. 数组的基本操作
+4. 数组的遍历
+```java
+        int[] arr = new int[] {11,22,33,44,55};
+
+//        正序
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+
+        System.out.println("******************************");
+
+//        倒序
+        for (int i = arr.length - 1; i >= 0 ; i--) {
+            System.out.println(arr[i]);
+        }
+```
+
+5. 数组的基本操作
 ```java
 int[] arr = { 1, 2, 3, 4, 5 };  
 String arrString = Arrays.toString(arr);  
@@ -664,9 +681,202 @@ for(int i = 0; i < arr.length; i++){
 System.out.println(Arrays.toString(revArr));
 //[5, 4, 3, 2, 1]
 
+//        优化代码  减少循环
+int[] arr = { 1, 2, 3, 4, 5 };
+        for (int i = 0; i < arr.length / 2; i++) {
+            int temp = arr[i];
+            arr[i] = arr[arr.length - 1 - i];
+            arr[arr.length - 1 - i] = temp;
+        }
+
 3. 移除数组中的元素
 int[] arr= { 1, 2, 3, 4, 5 };  
-int[] removed = ArrayUtils.removeElement(intArray, 3);//create a new array  
+int[] removed = ArrayUtils.removeElement(arr, 3);//create a new array  
 System.out.println(Arrays.toString(removed))
-```
 
+
+4. 数组排序
+        /*
+        *  冒泡排序  : 外层控制轮数  内层控制次数
+        *       轮数     数组长度 - 1
+        *
+        *       比较次数  数组长度 - i
+        * */
+
+        int[] arr = {45,58,21,63,66};
+
+//        for (int i = 1; i < arr.length; i++) {
+//            for (int j = 0; j < arr.length - i; j++) {
+//                if (arr[j] > arr[j+1]){
+//                    int temp = arr[j];
+//                    arr[j] = arr[j+1];
+//                    arr[j+1] = temp;
+//                }
+//            }
+//        }
+
+        System.out.println(Arrays.toString(arr));
+
+ /*
+        *  选择排序:
+        *       外层控制选择索引
+        *       内层控制对比索引
+        *
+        * */
+        int[] arr = {11,55,44,85,36,25};
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = i + 1; j < arr.length ; j++) {
+                if (arr[i] > arr[j]){
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(arr));
+```
+## 集合
+
+1. 定义
+```java
+/*
+         *  ArrayList 集合:
+         *
+         *   格式: 类名<元素类型> 变量 = new 类名<元素类型>()
+         *   注意: 类型不能用基本数据类型，使用基本数据类型对应的引用数据类型写法
+         *          首字母大写: byte  short long float double boolean
+         *          特殊类型:  int -> Integer   char ->  Character
+         * */
+
+//        定义 :
+
+//        字符串型
+        ArrayList<String> list1 = new ArrayList<>();
+//        长整型
+        ArrayList<Long> list2 = new ArrayList<>();
+//        整型
+        ArrayList<Integer> list3 = new ArrayList<>();
+//        浮点型
+        ArrayList<Double> list4 = new ArrayList<>();
+//        字符型
+        ArrayList<Character> list5 = new ArrayList<>();
+
+```
+2. 集合的操作
+```java
+        /*
+         *  集合的操作:
+         *       size: 获取集合的长度
+         *       get(index):  获取集合中的某个元素
+         *       add : 元素添加到集合的末尾，添加的元素要和定义集合的数据类型一致且符合该类型的范围
+         *
+         * */
+        ArrayList<String> list1 = new ArrayList<>();
+
+//        集合的元素添加
+
+//        list1.add("张三");
+//        System.out.println(list1);
+//        System.out.println(list1.size());
+//        list1.add("里斯");
+//        System.out.println(list1.get(1);
+
+//        集合的快速添加
+        Collections.addAll(list1, "张三", "李四", "王五");
+        System.out.println(list1);
+```
+3. 遍历
+```java
+ ArrayList<String> list1 = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            list1.add("哈哈" + i);
+        }
+//        System.out.println(list1);
+        
+//        正向遍历
+        for (int i = 0; i < list1.size(); i++) {
+            System.out.println(list1.get(i));
+        }
+
+        System.out.println("----------------------");
+        
+//        倒叙遍历
+        for (int i = list1.size() - 1; i >= 0; i--) {
+            System.out.println(list1.get(i));
+        }
+```
+```java
+       /*
+         * 练习题 ：求和  最值  元素的查找
+         * */
+
+        ArrayList<Integer> list = new ArrayList<>();
+        Collections.addAll(list, 11, 22, 33, 44, 55, 66);
+
+//        求和
+//        int sum = 0;
+//
+//        for (int i = 0; i < list.size(); i++) {
+//            sum += list.get(i);
+//        }
+//        System.out.println(sum);
+
+//        求平均值(注意小数位丢失的问题)
+
+//        double avg = 1.0 * sum / list.size();
+//        System.out.println(avg);
+
+//        求最值
+
+//        int max = list.get(0), min = list.get(0);
+//        for (int i = 1; i < list.size(); i++) {
+////            最大值
+//            if (max < list.get(i)) {
+//                max = list.get(i);
+//            }
+////            最小值
+//            if (min > list.get(i)) {
+//                min = list.get(i);
+//            }
+//        }
+//        System.out.println(max);
+//        System.out.println(min);
+
+//        元素查找
+//        int findnum = 22, index = -1;
+//        for (int i = 0; i < list.size(); i++) {
+//            if (findnum == list.get(i)) {
+//                index = i;
+//                break;
+//            }
+//        }
+//        System.out.println(index != -1 ? "元素:"+findnum+"索引:"+index:"未找到元素" + findnum);
+```
+## 方法
+
+1. 定义
+![图片](./img/16.png)
+```java
+ public static void main(String[] args) {
+        /*
+         *  函数：
+         *     方法名采用小驼峰
+         *     void 代表无返回值 放在函数名的前面  有返回值时需要指定 返回值类型 方法体末必须return返回值
+         *     参数列表  定义在() 中 称为形参  不能用=号赋值
+         *
+         * */
+
+//      普通调用
+        int result = Demo01.getSum(10,20);
+        System.out.println(result);
+//      本类内部调用忽略类名
+
+//        getSum(10,20);
+    }
+
+    public static int getSum(int num1, int num2) {
+        int sum = num1 + num2;
+        return sum;
+    }
+```
