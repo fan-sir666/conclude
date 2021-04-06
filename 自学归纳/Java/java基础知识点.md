@@ -880,3 +880,160 @@ System.out.println(Arrays.toString(removed))
         return sum;
     }
 ```
+## 成员变量&局部变量
+```java
+//    public static void main(String[] args) {
+    /*
+     *  局部和成员变量 ：根据作用域范围区分
+     * */
+
+//    }
+//    成员变量 （定义在方法外、类中的变量; 在改类的任意位置有效）
+//    绕开就近原则的 直属调用： 类名.成员变量名
+//    static int b = 20;
+
+//    public static void run(){
+//        // 局部变量 仅在方法内部可用，形参也是一种局部变量
+//        int a = 10;
+//        System.out.println(a);
+//    }
+
+
+//    练习题
+
+    /*static int num = 0;
+
+    public static void main(String[] args) {
+        int num = 1;
+        num++; // 局部 2
+
+        run1(num);
+        run1(BianLiang.num++); // ++ 之后成员变量 1
+
+        System.out.println(num); // 2
+        System.out.println(BianLiang.num); // 1
+    }
+
+    public static void run1(int num) {
+        num++;// 改方法内部的形参 num 1
+    }*/
+
+   /* static int num = 0;
+
+    public static void main(String[] args) {
+        int num = 1;
+        num++; // 局部 2
+        num = run1(BianLiang.num++); // 成员变量 1 返回值 1 赋值给局部变量num
+
+        System.out.println(num); // 1
+        System.out.println(BianLiang.num); // 1
+    }
+    public static int run1(int num){
+        return BianLiang.num+=num++;
+    }*/
+```
+## 字符串String
+```java
+    public static void main(String[] args) {
+        /*
+         *  字符串：代表一个字符序列，其底层为字符数组。
+         *
+         * */
+
+//        创建方式
+
+//        String str1 = new String("java"); // 完整
+
+//        String str2 = "java"; // 快捷
+
+//        char数组形式创建字符串
+        char[] arr = {'h', 'e', 'l', 'l', 'o'};
+
+//        String str1 = new String(arr);
+//        System.out.println(str1);
+
+//        将char数组 截取指定长度变为字符串
+        String str1 = new String(arr, 1, 3);
+        System.out.println(str1);   //ell
+
+//        小结：
+//        1、若仅需要对字符串进行创建保存：  String 变量名="值";
+//        2、若需要将字符数组转为字符串：  new String(char[] value);
+//        3、若需要将字符数组指定长度变为字符串： new String(char[] value,int offset,int count);
+//        4、创建新对象：new String("");
+
+    }
+```
+### 相关方法
+1. 判断方法
+```java
+        String str = "helloWorld";
+
+//      startsWith 是否以 xx 开头
+        System.out.println(str.startsWith("hello"));
+
+//      endsWith 是否以 xx 结尾
+        System.out.println(str.endsWith("world"));
+
+//      contains 是否包含 xx 字符串
+        System.out.println(str.contains("wo"));
+
+//      equals 是否与指定内容相等
+        System.out.println(str.equals("helloworld"));
+
+//      equalsIgnoreCase 是否与指定内容相等 (忽略大小写)
+        System.out.println(str.equalsIgnoreCase("helloworld"));
+
+//      isEmpty 当前字符串是否为空 true表示空
+        System.out.println(str.isEmpty());
+```
+2. 转换
+```java
+        String str1 = "  java,javaScript  ";
+//        String str1 = "javaScript";
+
+//        去除两端空格
+        System.out.println(str1.trim());
+//        转成大写
+        System.out.println(str1.toUpperCase());
+//        转成小写
+        System.out.println(str1.toLowerCase());
+//        截取 根据索引 空格也算  substring(start,end) 包含开始不包含结束
+        System.out.println(str1.substring(4));
+//        替换
+        System.out.println(str1.replace(',', '.'));
+//        变为字符串
+        char[] arr = {'l', 'o', 'v', 'e'};
+        System.out.println(Arrays.toString(arr)); // 返回字符串数组 [l, o, v, e]
+        System.out.println(new String(arr)); // love
+//        toCharArray变为字符数组
+        char[] arr1 = str1.toCharArray();
+        for (int i = 0; i < arr1.length; i++) {
+            System.out.print(arr1[i] + ",");
+        }
+        System.out.println("\n");
+//        切割split
+        System.out.println(Arrays.toString(str1.trim().split(",")));
+```
+3. 查找&其他方法
+```java
+
+//        查找方法
+        String str = "FanZhiWei";
+
+//        charAt返回指定索引字符
+        System.out.println(str.charAt(3));
+//        寻找指定字符串 参数: ① 要找的字符串 ②寻找的起始位置 ③ 未找到返回-1
+        System.out.println(str.indexOf("Zhi")); // 3
+
+
+//        其他方法
+
+//        获取字符串长度
+        System.out.println(str.length());
+//        比较两个字符串的大小 compareTo  返回:正数(str1大) 0 (一样大) 负数 (str2大)
+        String str1 = "abc", str2 = "def";
+        System.out.println(str1.compareTo(str2));
+//        字符串拼接 concat
+        System.out.println(str1.concat(str2));
+```

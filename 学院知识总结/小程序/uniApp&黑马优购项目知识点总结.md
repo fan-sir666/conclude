@@ -4,7 +4,7 @@
 
 ```txt
 uni-app 是一个使用 Vue.js 开发所有前端应用的框架。开发者编写一套代码，可发布到 iOS、Android、H5、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。
-``` 
+```
 [百度] (https://uniapp.dcloud.io/)
 
 ## 使用 uniapp 开发小程序 需要配置网络请求
@@ -46,8 +46,6 @@ $http.afterRequest = function () {
  ]
 在 subpkg 目录上鼠标右键，点击 新建页面 选项，并填写页面的相关信息
 ```
-## sass的使用
-
 ## 项目中知识点的使用 (采用vue语法进行开发)
 
 ### 轮播图
@@ -425,6 +423,13 @@ uni.$toast = function(title = "获取数据失败", duration = 1500) {
 }
 ```
 ![图片](./img/uni8.png)
+
+### uni.switchTab(OBJECT) **跳转到tabBar页面**
+```js
+uni.switchTab({
+    url: '/pages/index/index'
+});
+```
 
 
 
