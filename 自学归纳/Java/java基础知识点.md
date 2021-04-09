@@ -1037,3 +1037,60 @@ System.out.println(Arrays.toString(removed))
 //        字符串拼接 concat
         System.out.println(str1.concat(str2));
 ```
+## 类
+1. 概念
+```txt
+类 : 一个java文件就是一个类,一个类就是一个引用数据类型(可称为 一个 class)
+
+包含:   成员变量  和  成员方法
+```
+
+2. 基本创建
+```java
+//        基本创建
+public class Person {
+    String name;
+    int age ;
+
+//    私有成员变量
+    private  String idCard = "1302584654215";
+
+    public void talk(){
+        System.out.println("交谈");
+    }
+    public void eat(){
+        System.out.println("吃饭");
+    }
+
+// 注意: private 创建出来的私有成员变量 需要设置get/set方法 外界才可正常使用
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+}
+```
+3. 使用
+```java
+ public static void main(String[] args) {
+        /*
+        *  类的使用：
+        *       类名 对象名 = new 类名();
+        * */
+
+//        对象的创建
+        Person p1 = new Person();
+
+//       成员变量的使用
+        p1.name = "范志伟";
+        p1.age = 20;
+        System.out.println(p1.name);
+        System.out.println(p1.getIdCard()); // 外界使用私有成员变量
+
+//        成员方法的使用
+        p1.talk();
+    }
+```
+**注意:** private标记了的成员变量或方法只有本类内部使用；被public （公有）修饰的任何地方都可以使用。且每一个私有的成员变量都有get/set方法(快捷键 Alt+ins) 
