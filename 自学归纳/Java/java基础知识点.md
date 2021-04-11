@@ -1094,3 +1094,135 @@ public class Person {
     }
 ```
 **注意:** private标记了的成员变量或方法只有本类内部使用；被public （公有）修饰的任何地方都可以使用。且每一个私有的成员变量都有get/set方法(快捷键 Alt+ins) 
+**类和对象的关系**: 类是对象的抽象化；对象是类的实例化。一个类可以有多个对象。
+
+4. this ：指向 new 关键字实例出的对象  ， 谁调用指向谁。
+```java
+public class Phone {
+    private String pname;
+
+    public void run1(){
+        String pname = "aa";
+        System.out.println(pname);
+//        System.out.println(this.pname);
+        /*
+        *  当成员变量和局部变量相同时，直接使用变量名会遵循就近原则。
+        *  static (静态)成员变量的使用 需要 类名.成员变量名
+        *  成员变量的化 this.成员变量名
+        * */
+    }
+    public void run2(){
+//      本类中 使用成员变量成员方法都需要 this
+        this.run1();
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+}
+
+public class Cslie {
+    public static void main(String[] args) {
+
+        Phone p1 = new Phone();
+        p1.setPname("张三");
+        p1.run2();
+
+
+        Phone p2 = new Phone();
+        p2.setPname("李四");
+    }
+}
+```
+5. 构造方法
+```java
+/*
+*  构造方法 : 为了更好的为成员变量赋值，更好的创建对象。
+*
+*       定义在成员变量和成员方法同级下：public Phone(){} 无返回值和返回类型
+*
+* */
+
+public class Phone {
+    private String pname;
+
+//    构造方法：方法名必须和类名一致
+    public Phone(){
+        System.out.println("我是构造方法");
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+}
+public class Cslei {
+    public static void main(String[] args) {
+//      调用构造方法创建对象
+        Phone p1 = new Phone();
+    }
+}
+
+public class Phone {
+    private String pname;
+
+    //    构造方法：带有参数 且 为成员变量赋值 使用this
+    public Phone(String pname) {
+        this.pname = pname;
+        System.out.println("我是构造方法");
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+}
+public class Cslei {
+    public static void main(String[] args) {
+        Phone p1 = new Phone("张三");
+        System.out.println(p1.getPname());
+    }
+}
+```
+**注意** 在一个正常的java文件中，构造方法是必须存在的
+```java
+// 快捷创建
+
+1
+  /*
+    *  快捷创建无成员变量构造方法
+    *  Alt+ins 选择 Constructor
+    * */
+
+    public A() {
+    }
+2
+     /*
+    *  有成员变量无参的构造方法创建
+    *  Alt+ins 选择 Constructor --> 直接Select None
+    *
+    *  有参的化 选择相关参数点击ok
+    * */
+    private String name;
+    private int age;
+
+//    为了快捷创建对象
+    public C() {
+    }
+
+//    满参： 为了成员变量赋值
+    public C(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+```
