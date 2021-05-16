@@ -669,8 +669,8 @@ System.out.println(b);
 
 2. 逆向输出一个数组
 int[] arr= { 1, 2, 3, 4, 5 };  
-ArrayUtils.reverse(intArray);  
-System.out.println(Arrays.toString(intArray));  
+int[] newArr = ArrayUtils.reverse(arr);  
+System.out.println(Arrays.toString(newArr));  
 //[5, 4, 3, 2, 1]
 
 int[] arr = { 1, 2, 3, 4, 5 };
@@ -1226,3 +1226,637 @@ public class Cslei {
         this.age = age;
     }
 ```
+6. 标准类
+![图片](./img/17.png)
+```java
+package biaozhunlei;
+
+public class Person {
+    private String pname;
+    private int age;
+    private String aihao;
+
+    public Person() {
+    }
+
+    public Person(String pname, int age, String aihao) {
+        this.pname = pname;
+        this.age = age;
+        this.aihao = aihao;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAihao() {
+        return aihao;
+    }
+
+    public void setAihao(String aihao) {
+        this.aihao = aihao;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "pname='" + pname + '\'' +
+                ", age=" + age +
+                ", aihao='" + aihao + '\'' +
+                '}';
+    }
+}
+
+// 测试类
+public static void main(String[] args) {
+        Person p1 = new Person("张三", 18, "足球");
+
+        // 该方法默认调用toString
+        System.out.println(p1); //Person{pname='张三', age=18, aihao='足球'}
+    }
+```
+## 容器存储自定义对象
+
+### 数组存储
+1. 定义标准类
+```java
+public class Person {
+    private String pname;
+    private int age;
+
+    public Person() {
+    }
+
+    public Person(String pname, int age) {
+        this.pname = pname;
+        this.age = age;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "pname='" + pname + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+2. 自定义类型[] 数组名 = {对象1,对象2,对象3}
+```java
+public class Cs {
+    public static void main(String[] args) {
+//        Person zs = new Person("张三", 18);
+//        Person ls = new Person("李四", 18);
+//        Person ww = new Person("王五", 18);
+
+//        数组存储 自定义数组类型
+//        Person[] parr = {zs, ls, ww};
+//
+//        for (int i = 0; i < parr.length; i++) {
+//            System.out.println(parr[i].getPname());
+//        }
+
+//        简化
+        Person[] parr = {
+                new Person("张三", 18),
+                new Person("李四", 18),
+                new Person("王五", 18)
+        };
+        for (int i = 0; i < parr.length; i++) {
+            System.out.println(parr[i].getPname());
+        }
+    }
+}
+```
+### ArrayList存储
+1. 定义标准类
+```java
+public class Person {
+    private String pname;
+    private int age;
+
+    public Person() {
+    }
+
+    public Person(String pname, int age) {
+        this.pname = pname;
+        this.age = age;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "pname='" + pname + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+2. 创建ArrayList<自定义类型> 集合名 = new ArrayList<自定义类型>();
+```java
+public class Cs {
+    public static void main(String[] args) {
+//        Person zs = new Person("张三", 18);
+//        Person ls = new Person("李四", 18);
+//        Person ww = new Person("王五", 18);
+
+//        ArrayList存储 自定义ArrayList类型
+//        ArrayList<Person> parr = new ArrayList<>();
+//        Collections.addAll(parr,zs,ls,ww);
+//
+//        for (int i = 0; i < parr.size(); i++) {
+//            System.out.println(parr.get(i).getPname());
+//        }
+
+//        简化
+        ArrayList<Person> parr = new ArrayList<>();
+        Collections.addAll(parr,
+                new Person("张三", 18),
+                new Person("李四", 18),
+                new Person("王五", 18)
+        );
+        for (int i = 0; i < parr.size(); i++) {
+            System.out.println(parr.get(i).getPname());
+        }
+    }
+}
+```
+### 练习题
+```java
+/*已知要将现实生活中的员工(Employee)变成一个Java类
+        员工的信息   姓名name
+        薪水sal
+        职位 position
+        年终奖 award
+
+        设计员工类时：
+        1、薪水不能设置为负数
+        2、职位只能设置如下的字符串：
+        “员工”，“经理”
+        3、年终奖是计算出来的
+        只有经理有年终奖
+        计算公式 = 薪水*12
+        普通员工的年终奖为0
+*/
+//1. 定义标准类
+public class Employee {
+    private String name; // 姓名
+    private double sal;  // 月工资
+    private String position; // 职位
+    private double award; // 年终奖
+
+//  无参构造
+    public Employee() {
+    }
+//  带参构造
+    public Employee(String name, double sal, String position) {
+        this.name = name;
+        setSal(sal);
+        setPosition(position);
+    }
+
+    //    姓名
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //    月工资
+    public double getSal() {
+        return sal;
+    }
+
+    public void setSal(double sal) {
+//        非负数
+        if (sal >= 0) {
+            this.sal = sal;
+        }
+    }
+
+//    职位
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        if (position.equals("员工") || position.equals("经理")) {
+            this.position = position;
+        }
+    }
+
+    //    年终奖
+    public double getAward() {
+        if (this.getPosition().equals("经理")) {
+            return this.getSal() * 12;
+        } else {
+            return 0.0;
+        }
+    }
+    
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", sal=" + sal +
+                ", position='" + position + '\'' +
+                ", award=" + award +
+                '}';
+    }
+}
+public class Cs {
+    public static void main(String[] args) {
+        /*已知一个公司是有5名员工，有2名经理  (自定义填充)
+        1、求所有员工的月工资总和？
+        2、求所有员工的年终奖 总和是多少？*/
+
+        ArrayList<Employee> elist = new ArrayList<>();
+        Collections.addAll(elist,
+                new Employee("张一",1000.0,"员工"),
+                new Employee("张二",2000.0,"员工"),
+                new Employee("张三",3000.0,"员工"),
+                new Employee("张四",4000.0,"员工"),
+                new Employee("张五",5000.0,"员工"),
+                new Employee("李四",10000.0,"经理"),
+                new Employee("王五",10000.0,"经理")
+                );
+//        1. 月工资总和
+        double salSum = 0.0;
+        for (int i = 0; i < elist.size(); i++) {
+            salSum += elist.get(i).getSal();
+        }
+        System.out.println(salSum);
+
+//        2.年终奖总和
+        double awardSum = 0.0;
+        for (int i = 0; i < elist.size(); i++) {
+            awardSum += elist.get(i).getAward();
+        }
+        System.out.println(awardSum);
+    }
+}
+// 练习题心得
+// 1. 有赋值要求修改对应的Set方法;获取、计算时修改Get方法
+// 2. 无需外界赋值，删除相应的Set方法, 切记看看带参构造中是否存在不需外界传参的形参。
+```
+## 接口
+1. 定义
+```java
+/*
+*  接口:  定义通过 interface 关键字，用来定义规范、增强程序扩展性
+*
+*    注意:   ①接口 不能有构造函数 更不能直接new对象
+*            ② 不可以 对变量再次赋值 java默认加了  public static final 实则都是常量
+* */
+
+
+//  手机接口
+
+public interface Phone {
+//    常量
+    String NAME = "小张";
+//    规范 该方法 需要 普通类中重写 通过实例对象调用
+    void call(); // 无需方法体
+
+//   静态方法
+    static void run(){
+        System.out.println("奔跑");
+    }
+
+//    默认方法 不能类名.方法名调用 必须实例对象调用
+    default void moren(){
+        System.out.println("默认方法");
+    }
+}
+
+```
+2. 实现接口
+```java
+/*
+ *     实现接口 ：通过接口 定义普通java类
+ *
+ *          格式: public class 类名 implements 接口名{}
+ *
+ *          一个类支持实现多个接口 implements 关键字后面 用，号隔开
+ * */
+public class HwPhone implements Phone {
+
+//    重写方法
+    @Override
+    public  void  call(){
+        System.out.println("我是华为手机可以打电话");
+    }
+}
+```
+3. 实例对象
+```java
+public class Demo01 {
+    public static void main(String[] args) {
+        HwPhone hw = new HwPhone();
+        hw.call();
+//        System.out.println(Phone.name); // 可以直接获取接口常量
+//        Phone.run(); // 调用静态方法
+//        hw.moren();  // 调用默认方法
+// 注意: 如果默认方法在 普通类中 进行了重写 会将 接口中方法体内的进行覆盖
+    }
+}
+```
+4. 快捷实现接口的定义
+![图片](./img/18.png)
+
+5. 练习题
+```java
+// 1. 接口
+/*要求设计一个Computable接口，以及它的两个实现类：Square和Circle
+        其中：
+        1）Computable接口拥有一个抽象方法area，方法接收有一个double类型的参数，返回一个double类型的结果
+        2）Square类和Circle类 分别实现了Computable接口的area()抽象方法，分别求正方形和圆形的面积并返回
+
+        要求在测试类Demo1.java中分别创建Square类和Circle类的对象，
+        计算边长为2的正方形面积 和 半径为3的圆形面积*/
+
+public interface Computable {
+    double area(double x);
+}
+// 2.普通类
+public class Square implements Computable {
+    @Override
+    public double area(double x) {
+        return x * x;
+    }
+}
+public class Circle implements Computable {
+    @Override
+    public double area(double x) {
+        return 3.14 * x * x;
+    }
+}
+// 3.实例对象 允有接口规范的能力
+public class Cs {
+    public static void main(String[] args) {
+        Square s = new Square();
+        Circle c = new Circle();
+        double x1 = s.area(2);
+        double x2 = c.area(3);
+        System.out.println("边长为2的正方形面积:" + x1);
+        System.out.println("半径为2的园圆面积:" + x2);
+    }
+}
+
+```
+## 集合进阶
+
+### ArrayList
+1. 定义
+```java
+ArrayList<Integer> list = new ArrayList<>();
+Collections.addAll(list,1,2,3);
+System.out.println(list);
+```
+2. 方法
+```java
+获取长度: 集合.size()
+获取元素: 集合.get(索引)
+添加元素: 集合.add(目标位置,需要添加的元素)
+删除元素: 集合.remove(索引) // 返回删除的元素
+
+增强for循环: 快捷方式  集合.for
+for (Integer integer : list) {
+            System.out.println(integer);
+    }
+// 注意:只能正向遍历，不可以在遍历中进行元素增删操作。
+```
+### linkedList 
+```java
+        /*
+        *   LinkedList: 链表 (没有索引)  操作元素的 头&尾
+        *
+        *       元素之间 ：双向链表
+        *
+        * */
+
+//        定义
+        LinkedList<String> list = new LinkedList<>();
+
+//        添加  addFirst 头 addLast 尾
+        list.addFirst("aa");
+        list.addLast("bb");
+        // Collections.addAll 添加多个
+//        System.out.println(list);
+
+
+//        获取
+        System.out.println(list.getFirst()); // aa
+        System.out.println(list.getLast());  // bb
+
+//        删除
+
+        String s1 = list.removeFirst();
+        String s2 = list.removeLast();
+//        System.out.println(s1);
+//        System.out.println(s2);
+
+//  注意:    没有元素的时候  获取和删除操作会报错
+
+//      遍历 使用增强for循环
+        for (String s : list) {
+            System.out.println(s);
+        }
+
+//        LinkedList 支持 ArrayList的操作方法 ，但由于底层没有索引  模拟索引完成操作 效率低不建议使用。
+```
+### HashSet
+```java
+        /*
+        *  HashSet (无索引) 存储元素不重复
+        *
+        * */
+
+//        定义
+        HashSet<String> list = new HashSet<>();
+
+//        添加  保存元素的顺序 依照 ASCII码表 的顺序
+//        list.add("官呈达");
+//        list.add("袁旭东");
+//        list.add("范志伟");
+//        System.out.println(list);
+
+        Collections.addAll(list,"aa","bb","cc");
+//        System.out.println(list);
+//        System.out.println(list.add("bb")); // false 添加重复元素失败 返回布尔值
+
+//        元素个数
+//        System.out.println(list.size());
+
+//        判断集合是否为空
+//        System.out.println(list.isEmpty());
+
+//        移除
+        System.out.println(list.remove("bb")); // true
+//        清空
+        list.clear();
+        System.out.println(list);
+
+//        遍历
+//        for (String s : list) {
+//            System.out.println(s);
+//        }
+```
+### HashMap
+```java
+        /*
+         *  Map : 双列集合 元素由 键值组成
+         *       元素不能重复 新值会覆盖
+         * */
+
+//        定义    键       值
+        HashMap<String, Integer> list = new HashMap<>();
+
+//        添加
+        list.put("aa", 11);
+        list.put("bb", 22);
+        list.put("cc", 33);
+//        System.out.println(list);
+        System.out.println(list.put("aa", 44)); // 添加重复元素 返回覆盖的值
+
+//        获取
+        System.out.println(list.get("bb")); // 如果获取的值不存在 返回 null
+
+//        删除
+        System.out.println(list.remove("cc")); // 33 返回删除的值   删除未存在的值返回 null表示删除失败
+
+//        个数
+        System.out.println(list.size());
+
+//        清空
+       System.out.println(list.clear());
+
+//        是否为空
+        System.out.println(list.isEmpty()); // false
+
+
+//        遍历 key  快捷 map.keySet().for
+        for (String key : list.keySet()) {
+            System.out.println(key +":"+list.get(key));
+
+        }
+
+//        遍历键值对  map.entrySet().for     getKey 获取键  getValue 获取值
+        for (Map.Entry<String, Integer> entry : list.entrySet()) {
+            System.out.println(entry.getKey()+":"+entry.getValue());
+        }
+```
+### 存储自定义类型
+1. 定义一个标准类
+```java
+public class Person {
+    private String name;
+    private String sex;
+    private  int age;
+
+    public Person() {
+    }
+
+    public Person(String name, String sex, int age) {
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                '}';
+    }
+```
+```java
+public class Cs {
+    public static void main(String[] args) {
+        // 自定义类型
+        HashMap<String, Person> list = new HashMap<>();
+
+        list.put("帅哥",new Person("张三","男",18));
+        list.put("靓女",new Person("小红","女",16));
+        System.out.println(list);
+
+//      获取自定义类的值
+        Person p = list.get("帅哥");
+        System.out.println(p);
+    }
+}
+```
+
