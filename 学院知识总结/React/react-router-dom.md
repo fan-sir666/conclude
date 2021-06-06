@@ -332,8 +332,45 @@ export default App;
 ```
 **注意:**
 ```jsx
- {/* 在嵌套路由中 父组件的视图容器 放的不在是引入的routes 而是 props.route.routes */}
+{/* 在嵌套路由中 父组件的视图容器 放的不在是引入的routes 而是 props.route.routes ,这样接收数据的组件需在componentDidMount钩子函数中获取和设置数据然后渲染 */}
 {renderRoutes(this.props.route.routes)}
+// 接收数据的组件:
+ state = {
+        name: '',
+        age: ''
+    }
+    componentDidMount() {
+        let params = new URLSearchParams(this.props.location.state)
+        this.setState({
+            name: params.get('name'),
+            age: params.get('age'),
+        })
+    }
+
+{/* renderRoutes 使用该方法的第二个参数: 在通过URL传参的情况下: 在 render函数中 统一处理数据,接收参数的组件下直接props.数据的键名即可 */}
+ render() {
+        // 1.2 通过URLSearchParams的实例对象 处理 this.props.location.search 地址
+        let params = new URLSearchParams(this.props.location.search);
+        // 1.3 获取相关属性的值
+        this.data = {name:params.get('name'),age:params.get('age')}
+
+        return (
+            <DivBox>
+                <h3>用户管理页面</h3>
+                <div className="box-top">
+                    {/* URL传参 1.1 */}
+                    <NavLink to='/usermanage/web?name=鲁正一&age=22'>鲁正一</NavLink>
+                    <NavLink to='/usermanage/vue?name=徐月&age=20'>徐玥</NavLink>
+                    <NavLink to='/usermanage/react?name=殷鸿亮&age=33'>殷鸿亮</NavLink>
+                    <NavLink to='/usermanage/php?name=刘浩宇&age=25'>徐玥</NavLink>
+                </div>
+                <div className="box-btm">
+                    {/* 1.4 视图层 第二个参数将数据抛出去 */}
+                    {renderRoutes(this.props.route.routes,this.data)}
+                </div>
+            </DivBox>
+        )
+    }
 ```
 
 
