@@ -114,5 +114,8 @@ store.getState() 获取数据
 store.dispatch({ type: "ADD_COUNT" }) 传递处理数据标识
 store.subscribe(参数 function) 监听状态 
 ```
+## react-redux插件
+## redux-thunk插件
+## redux-saga插件
 
 
