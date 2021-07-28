@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            /* 去除浮动 */
+            overflow: hidden;
+            padding: 0 200px;
+        }
+        
+        .left,
+        .right,
+        .middle {
+            float: left;
+            text-align: center;
+            height: 200px;
+            line-height: 200px;
+        }
+        
+        .left,
+        .right {
+            position: relative;
+            width: 200px;
+        }
+        
+        .left {
+            left: -200px;
+            margin-left: -100%;
+            background-color: red;
+        }
+        
+        .right {
+            right: -200px;
+            margin-left: -200px;
+            background-color: green;
+        }
+        
+        .middle {
+            width: 100%;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="middle">中栏</div>
+        <div class="left">左栏</div>
+        <div class="right">右栏</div>
+    </div>
+</body>
+
+</html>
