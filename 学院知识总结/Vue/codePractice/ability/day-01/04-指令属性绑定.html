@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 属性绑定 v-bind 简写：：冒号即可 -->
+    <div id="app">
+        <a v-bind:class="lm" :href="lj">{{msg}}</a>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        const counter = {
+            data() {
+                return {
+                    msg: '哈哈,来了老弟',
+                    lm: 'red',
+                    lj: 'http://www.baidu.com'
+                }
+            }
+        }
+        Vue.createApp(counter).mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span {
+            display: block;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 属性绑定 v-on 简写：@ -->
+    <div id="app">
+        <span v-on:click="djClick">点击有发现</span>
+        <span v-on:dblclick="sjClick('张三')">双击有发现</span>
+        <span @mouseover="ycMouseout">移入有发现</span>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        const counter = {
+            data() {
+                return {
+                    name: '张三'
+                }
+            },
+            methods: {
+                djClick() {
+                    alert('我被点击了');
+                },
+                sjClick(name) {
+                    alert(`我的名字叫:${name}`);
+                },
+                ycMouseout: function() {
+                    alert(`我的名字叫:${this.name}`)
+                }
+            }
+        }
+        Vue.createApp(counter).mount('#app')
+    </script>
+</body>
+
+</html>

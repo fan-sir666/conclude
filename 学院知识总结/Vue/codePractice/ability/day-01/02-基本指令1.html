@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{name}}</h3>
+        <!-- v-text:纯文本;v-html:解析标签 -->
+        <div v-text='msg'></div>
+        <div v-html='msg'></div>
+    </div>
+    <script src="./lib/vue-2.5.16.js"></script>
+    <script>
+        const data = {
+            name: '张三',
+            msg: '<span style="color:red">来了老弟好嗨呦</span>'
+        }
+        const app = new Vue({
+            el: '#app',
+            data: data
+        })
+    </script>
+</body>
+
+</html>
