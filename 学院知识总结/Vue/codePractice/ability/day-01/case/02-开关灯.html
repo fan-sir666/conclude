@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        #app {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .light {
+            background-color: #fff;
+        }
+        
+        .dark {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" :class="[flag?'light':'dark']">
+        <button @click='toggle'>{{msg}}</button>
+        <p>来临的打开手机的撒肯定撒大数据的j!!!!</p>
+    </div>
+    <script src="../lib/vue-2.5.16.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+                msg: '关灯'
+            },
+            methods: {
+                toggle() {
+                    this.flag = !this.flag;
+                    this.flag ? this.msg = '关灯' : this.msg = '开灯'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

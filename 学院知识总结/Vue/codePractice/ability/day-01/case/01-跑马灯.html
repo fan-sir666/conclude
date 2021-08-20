@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click='lang'>开始</button>
+        <button @click='stop'>停止</button>
+        <p>{{msg}}</p>
+    </div>
+    <script src="../lib/vue-2.5.16.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: '来了老弟,好嗨哟!!!',
+                interId: null
+            },
+            methods: {
+                // 开始
+                lang() {
+                    if (this.interId !== null) return; // 判断截流只有null才开启计时器
+                    this.interId = setInterval(() => {
+                        const header = this.msg.slice(0, 1)
+                        const next = this.msg.slice(1)
+                        this.msg = next + header
+                    }, 500)
+                },
+                // 停止
+                stop() {
+                    clearInterval(this.interId);
+                    this.interId = null;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

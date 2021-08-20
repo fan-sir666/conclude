@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-focus>
+    </div>
+    <!-- <script src="../lib/vue-2.5.16.js"></script> -->
+    <script src="../lib/vue-3.0.js"></script>
+    <script>
+        /* // 全局指令 2.x
+                Vue.directive('focus', {
+                    // 该对象下的钩子函数 inserted 被绑定元素插入父节点时调用
+                    // inserted 下的参数：el：指令所绑定的元素，可以用来直接操作 DOM。
+                    inserted(el) {
+                        el.focus();
+                    }
+                })
+
+                // 这个东西为啥必须放到最后面?
+                new Vue({
+                    el: '#app'
+                }); */
+
+
+        // 3.x
+        Vue.createApp({}).directive('focus', {
+            mounted(el) {
+                el.focus();
+            }
+        }).mount('#app'); 
+        
+    </script>
+</body>
+
+</html>
