@@ -1,0 +1,1 @@
+export let myName = "模块命名冲突"
