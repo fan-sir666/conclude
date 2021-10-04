@@ -8,6 +8,7 @@ Vuex是实现组件全局状态（数据）管理的一种机制，可以方便�
 3.存储在vuex中的数据是响应式的，当数据发生改变时，页面中的数据也会同步更新
 ```
 ## 基本使用
+### vue3 Vuex4
 1. 安装
 ```shell
 npm install vuex@next --save
@@ -41,6 +42,54 @@ let vm = createApp(App);
 vm.use(store);
 vm.mount("#app");
 ```
+### vue2 vuex3
+1. 安装
+```shell
+  yarn add vuex
+```
+2. 配置:(在src文件夹下创建store文件夹并创建index.js)
+```js
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+
+// 创建 store
+
+const store = new Vuex.Store({
+    // 初始化数据
+    state: {
+        count: 0
+    },
+    // 同步函数处理
+    mutations: {
+
+    },
+    // 异步函数处理
+    actions: {
+
+    },
+    // 计算属性
+    getters: {
+
+    }
+})
+
+// 导出
+export default store;
+```
+3. 挂载(main.js)
+```js
+import Vue from 'vue'
+import App from './App.vue'
+import store from "./store/index"
+
+Vue.config.productionTip = false
+
+new Vue({
+    store,
+    render: h => h(App),
+}).$mount('#app')
+```
 ## vuex的核心
 ### state:唯一的公共数据源，所有共享的数据都要统一放到这里
 1. 方式一
@@ -53,18 +102,9 @@ export default createStore({
             name: "张三",
         };
     },
-    mutations: {
-      
-    },
-    actions: {
-       
-    },
-    getters: {
-       
-    }
 });
 ```
-```vue
+```html
 <template>
   <div class="hello">
     <h3 >我叫:{{ showSx }}</h3>
@@ -85,50 +125,10 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
-
 ```
 2. 方式二(推荐)
-```js
-// 导入vuex
-import { createStore } from "vuex";
 
-// 导出配置
-export default createStore({
-    state() {
-        return {
-            uname: "张三",
-        };
-    },
-    mutations: {
-       
-    },
-    actions: {
-       
-    },
-    getters: {
-        
-    }
-});
-```
-```vue
+```html
 <template>
   <div class="hello">
     <h3>我叫{{ uname }},今年{{ age }}岁</h3>
@@ -152,25 +152,6 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
-
 ```
 ### mutations:因不可以直接操作Store中的数据,所以用于修改Store中的数据(同步方法)
 #### 不传参
@@ -190,15 +171,9 @@ export default createStore({
         },
       
     },
-    actions: {
-       
-    },
-    getters: {
-       
-    }
 });
 ```
-```vue
+```html
 <template>
   <div class="hello">
     <h3>我叫:{{ showSx }}</h3>
@@ -224,25 +199,6 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
-
 ```
 #### 传参
 1. 方式1
@@ -266,15 +222,9 @@ export default createStore({
             state.ahao = val;
         },
     },
-    actions: {
-
-    },
-    getters: {
-
-    }
 });
 ```
-```vue
+```html
 <template>
   <div class="hello">
     <h3 @click.prevent="aHao">{{ showSx }},我的爱好是{{ ahao }}</h3>
@@ -308,25 +258,6 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
-
 ```
 2. 方式二
 ```js
@@ -346,16 +277,9 @@ export default createStore({
             state.uname = name
         },
     },
-    actions: {
-       
-    },
-    getters: {
-       
-    }
 });
 ```
-```vue
-
+```html
 <template>
   <div class="hello">
     <h3 @click="changeName(name)">我叫{{ uname }},今年{{ age }}岁</h3>
@@ -381,23 +305,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
 ```
 ### actions: 通过异步操作变更数据
 1. 方式1

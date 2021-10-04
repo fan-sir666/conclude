@@ -13,7 +13,7 @@ Vue Router介绍：它是一个Vue.js官方提供的路由管理器。是一个�
 ```shell
 npm install vue-router@4
 ```
-2. 在src文件夹下创建routes文件夹并创建index.js
+2. 在src文件夹下创建router文件夹并创建index.js
 ```js
 // 1.引入vue-router
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -42,7 +42,7 @@ import { createApp } from "vue";
 // 2.导入组件
 import App from "./App.vue";
 // 3.导入路由
-import router from "./routes/index.js";
+import router from "./router/index.js";
 // 4.创建实例
 const vm = createApp(App);
 // 5.把路由挂载到vm实例上
@@ -69,7 +69,7 @@ vm.mount("#app");
 ```
 ### vue2 路由3
 1. 下载vue-router
-2. 在src文件夹下创建routes文件夹并创建index.js
+2. 在src文件夹下创建router文件夹并创建index.js
 ```js
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -112,7 +112,7 @@ export default router;
 ```js
 import Vue from 'vue'
 import App from './App.vue'
-import router from "./routes/index"
+import router from "./router/index"
 
 Vue.config.productionTip = false
 
